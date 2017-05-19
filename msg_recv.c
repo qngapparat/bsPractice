@@ -17,6 +17,8 @@ int main(int argc, char const *argv[]) {
     int msgid;
     struct msgbuf rcvbuf;
 
+    key = 1234;
+
     if((msgid = msgget(key, 0666)) == -1){
         perror("msgget");
         return EXIT_SUCCESS;
