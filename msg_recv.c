@@ -15,6 +15,8 @@ int main(int argc, char const *argv[]) {
 
     key_t key;
     int msgid;
+    //structs containing the message and another identifier (long mtype), here set to 1
+
     struct msgbuf rcvbuf;
 
     key = 1234;
@@ -24,16 +26,23 @@ int main(int argc, char const *argv[]) {
         return EXIT_SUCCESS;
     }
 
-    //receive message  of type 1 (defined in struct msgbuf mtype in msg_send.c)
-    if(msgrcv(msgid, &rcvbuf, MAX_BUF, 1, 0) == -1){
-        perror("msgrcv");
-        return EXIT_FAILURE;
+    while(1){
+        //receive message  of identifier 1 (long mtype)
+        if(msgrcv(msgid, &rcvbuf, MAX_BUF, 1, 0) == -1){
+            perror("msgrcv");
+            return EXIT_FAILURE;
+        }
+
+        //print message
+        else{
+            printf("message received:\n");
+            printf("%s\n", rcvbuf.mtext);
+        }
     }
 
-    else{
-        printf("message received:\n");
-        printf("%s\n", rcvbuf.mtext);
-    }
+
+    //destroy message queue
+    msgctl(msgid, IPC_RMID, NULL);
 
 
     return EXIT_SUCCESS;

@@ -24,6 +24,7 @@ int main(int argc, char const *argv[]) {
     sndbuf.mtype = 1;
 
     size_t buflen;
+    //create msg queue if it doesnt already exist
     int mask = 0666 | IPC_CREAT;
 
     key = 1234;
@@ -33,19 +34,21 @@ int main(int argc, char const *argv[]) {
         return EXIT_FAILURE;
     }
 
-    printf("enter a text:\n");
-    scanf("%[^\n]",sndbuf.mtext);
-    getchar(); //NOTE for whatever reason
+    while(1){
+        printf("enter a text:\n");
+        scanf("%[^\n]",sndbuf.mtext);
+        getchar(); //NOTE for whatever reason
 
-    buflen = strlen(sndbuf.mtext) + 1;
+        buflen = strlen(sndbuf.mtext) + 1;
 
-    if((msgsnd(msgid, &sndbuf, buflen, IPC_NOWAIT)) == -1){
-        perror("msgsnd");
-        return EXIT_FAILURE;
-    }
+        if((msgsnd(msgid, &sndbuf, buflen, IPC_NOWAIT)) == -1){
+            perror("msgsnd");
+            return EXIT_FAILURE;
+        }
 
-    else{
-        printf("message sent\n");
+        else{
+            printf("message sent\n");
+        }
     }
 
     printf("completed. terminating\n");
