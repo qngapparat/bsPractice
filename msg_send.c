@@ -36,11 +36,13 @@ int main(int argc, char const *argv[]) {
 
     while(1){
         printf("enter a text:\n");
+        //scan until a newline is inserted (\n)
         scanf("%[^\n]",sndbuf.mtext);
         getchar(); //NOTE for whatever reason
 
         buflen = strlen(sndbuf.mtext) + 1;
 
+        //send message
         if((msgsnd(msgid, &sndbuf, buflen, IPC_NOWAIT)) == -1){
             perror("msgsnd");
             return EXIT_FAILURE;
