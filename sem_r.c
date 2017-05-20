@@ -32,7 +32,7 @@ int main(int argc, char const *argv[]) {
     printf("waiting for critical region\n");
 
     watch((semop(semid, lock, 1)), "semop");
-    printf("im in the critical region man\n");
+    //critical region
     watch((semop(semid, unlock, 1)), "semop");
 
     printf("done. terminating\n");

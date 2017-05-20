@@ -28,41 +28,35 @@ int main(int argc, char const *argv[]) {
     lock[0].sem_op = -1; //decrement semaphore to lock
     lock[0].sem_flg = SEM_UNDO; //waits in case semaphore is 0
 
-    struct sembuf unlock[1]; //TODO to array
+    struct sembuf unlock[1];
     unlock[0].sem_num = 0;
     unlock[0].sem_op = +1;
     unlock[0].sem_flg = SEM_UNDO; //TODO might change this
 
-
-    //this way, semop can replace the initial semctl (at least with one semaphore).
-    /*lock.sem_op = 1;
-    watch((semop(semid, lock, 1)), "initial semop (semctl replacement)");
-
-    //reset our operation
-    lock.sem_op = +1;*/
-
+    //use the following for multiple semapores, in combination with SETALL instead of SETVAL
+/*
     union semun arg;
     unsigned short values[1];
     values[0] = 1;
     arg.array = values;
+*/
+    union semun arg;
+    arg.val = 1;
 
-    watch((semctl(semid, 0, SETALL, arg)), "init setctl");
+    //init semaphore (set to 1)
+    watch((semctl(semid, 0, SETVAL, arg)), "semctl");
 
-
+    //critical
     watch((semop(semid, lock, 1)), "semop");
-    printf("im in critical region... sleeping here for 10 sec\n");
-    int i = 0;
-    while(i++ < 10){
-        sleep(1);
-    }
+    printf("im in critical region... \n");
+    //critical operations here
     watch((semop(semid, unlock, 1)), "semop");
+    //end critical
 
     printf("waiting 5 sec for reader to finish before terminating\n");
-    //Waiting 5 seconds. using i=10 from above.
-    while(i-- > 5){
-        sleep(1);
-    }
+    sleep(5);
 
+    //delete semaphore
     printf("unlinking + terminating\n");
     watch((semctl(semid, 0, IPC_RMID)), "semctl");
 
