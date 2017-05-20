@@ -3,6 +3,9 @@
 #include <unistd.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include "error_handler.h"
+
+//open existing shm, reading char-by-char from shm, setting "flag" to signal sender to terminate
 
 
 int main(int argc, char const *argv[]) {
@@ -11,29 +14,34 @@ int main(int argc, char const *argv[]) {
     int shmid;
     char *s, *shm;
 
-    const int MAX_SIZE = 128;
-    int mask = IPC_CREAT | 0666;
+    const int MAX_SIZE = 27;
+    int mask = 0666;
     key = ftok(".", 'a');
 
     if((shmid = shmget(key, MAX_SIZE, mask)) == -1){
-        perror("shmget")
-        return EXIT_FAILURE;
+        die("shmget");
     }
 
     if((shm = shmat(shmid, NULL, 0)) == (char*) -1){
-        perror("shmat");
-        return EXIT_SUCCESS;
+        die("shmat");
     }
 
-
-    for(s = shm; *s != NULL; s++){
+    s = shm;
+    for(int i = 0; i < MAX_SIZE; i++){
         putchar(*s);
+        s++;
     }
 
     putchar('\n');
 
     //set complete "flag"
     *shm = '*';
+
+    if(shmdt(shm) == -1){
+        die("shmdt");
+    }
+
+    printf("detached. terminating\n");
 
     return EXIT_SUCCESS;
 }
