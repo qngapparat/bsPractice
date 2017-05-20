@@ -14,9 +14,7 @@ int main(int argc, char const *argv[]) {
     int semid;
 
     //create
-    if((semid = semget(key, 1, mask)) == -1){
-        die("semget");
-    }
+    watch((semid = semget(key, 1, mask)), "semget");
 
     //create lock and unlock structs
     struct sembuf lock;
@@ -27,33 +25,28 @@ int main(int argc, char const *argv[]) {
     struct sembuf unlock; //TODO to array
     unlock.sem_num = 0;
     unlock.sem_op = +1;
-    unlock.sem_flg = IPC_NOWAIT; //TODO might change this
+    unlock.sem_flg = 0; //TODO might change this
 
 
     //this way, semop can replace the initial semctl (at least with one semaphore).
     lock.sem_op = 1;
-    if((semop(semid, &lock, 1)) == -1){
-        die("semop lock (initial)");
-    }
+    watch((semop(semid, &lock, 1)), "initial semop (semctl replacement)");
 
     //reset our operation
     lock.sem_op = +1;
 
-    if((semop(semid, &lock, 1)) == -1){
-        die("semop lock");
+    watch((semop(semid, &lock, 1)), "semop");
+    printf("im in critical region... sleeping here for 10 sec\n");
+
+    int i = 0;
+    while(i++ < 10){
+        sleep(1);
     }
 
-    printf("im in critical region\n");
-
-    if((semop(semid, &unlock, 1)) == -1){
-        die("semop unlock");
-    }
+    watch((semop(semid, &unlock, 1)), "semop");
 
     printf("unlinking + terminating\n");
-
-    if((semctl(semid, 0, IPC_RMID)) == -1){
-        die("semctl ipc_rmid");
-    }
+    watch((semctl(semid, 0, IPC_RMID)), "semctl");
 
 
     return EXIT_SUCCESS;
