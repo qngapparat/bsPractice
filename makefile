@@ -16,3 +16,4 @@ pipe:
 
 	gcc anon_pipe.c error_handler.c -o anonpipe.out
 	gcc anon_pipe_dual.c error_handler.c -o anondual.out
+	gcc simple_pipe.c error_handler.c -o simplepipe.out
