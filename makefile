@@ -23,3 +23,6 @@ fifo:
 	gcc chatter_2.c error_handler.c -o chat2.out
 	gcc chatter_3.c error_handler.c -o chat3.out
 	gcc logging_service.c error_handler.c -o logging.out
+
+sig:
+	gcc sig.c error_handler.c -o sig.out
