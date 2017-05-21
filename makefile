@@ -17,3 +17,9 @@ pipe:
 	gcc anon_pipe.c error_handler.c -o anonpipe.out
 	gcc anon_pipe_dual.c error_handler.c -o anondual.out
 	gcc simple_pipe.c error_handler.c -o simplepipe.out
+
+fifo:
+	gcc chatter_1.c error_handler.c -o chat1.out
+	gcc chatter_2.c error_handler.c -o chat2.out
+	gcc chatter_3.c error_handler.c -o chat3.out
+	gcc logging_service.c error_handler.c -o logging.out
