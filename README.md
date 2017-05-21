@@ -5,7 +5,7 @@ Filenames: r = read, w = write, rcv = receive, snd = send.
 #### simple_pipe.c
 create am unnamed pipe between related processes used to send string.
 #### anon_pipe.c and anon_pipe_dual.c
-create one (anon_pipe.c) or two (anon_pipe_dual.c) unnamed pipes between related processes executing shell programs. For anon_pipe_dual.c, an arbitrary task is selected.
+create one (anon_pipe.c) or two (anon_pipe_dual.c) unnamed pipes between related processes executing shell programs. anon_pipe_dual.c doesn't execute anything, it simply demonstrates two-way communication.
 #### popen_r.c and popen_w.c
 execute shell programs using popen() and pclose() which write to / read from a FILE*
 popen_r.c illustrates how to read from the FILE*, where the stdout of "ls -l" is saved. Data is piped from stdout of the shell program to FILE*.
@@ -21,5 +21,5 @@ creating a shared memory segment and writing / reading a string.
 Note: To signal the sender that the signal was received and the shared memory can be deleted by the sender, the first character is set to " * " by the receiver. The sender waits in a loop until this is the case, and then deletes the segment and terminates.
 #### sem_r.c and sem_w using System V
 creating a public semaphore and using it to control access to one critical region per program.
-#### posix_shm.c
+#### posix_shm.c using POSIX
 using POSIX shared memory to store and change an integer over different processes.
