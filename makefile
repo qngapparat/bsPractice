@@ -26,3 +26,6 @@ fifo:
 
 sig:
 	gcc sig.c error_handler.c -o sig.out
+
+posix:
+	gcc posix_shm.c error_handler.c -o posixshm.out -lrt
