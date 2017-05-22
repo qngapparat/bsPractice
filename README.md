@@ -2,7 +2,7 @@
 Practising IPC in C, including pipes, signals, shared memory and semaphores.
 Filenames: r = read, w = write, rcv = receive, snd = send.
 
-### Inter-Process Communication
+## Inter-Process Communication
 **simple_pipe.c**
 create am unnamed pipe between related processes used to send string.
 
@@ -20,7 +20,7 @@ sending, catching and handling signals (SIGUSR1, SIGUSR2 and SIGINT) between mul
 **logging_service.c with chatter_1.c thru chatter_3.c**
 three "chatters" creating a fifos to they each write strings. logging_service.c watches all three using select(), and prints messages of all three fifos.
 
-#### System V
+### System V
 **msg_recv.c and msg_send.c using System V**
 creating a public message queue (char array) to pass informations between processes.
 
@@ -31,13 +31,13 @@ creating a shared memory segment and writing / reading a string.
 **sem_r.c and sem_w using System V**
 creating a public semaphore and using it to control access to one critical region per program.
 
-#### POSIX
+### POSIX
 **posix_shm.c using POSIX**
 using POSIX shared memory to store and change an integer over different processes.
 
 **posix_sem.c using POSIX**
 creating a POSIX semaphore and closing it (insert critical section code between sem_open and sem_close).
 
-### Miscellaneous
+## Miscellaneous
 **array-based queue blueprint**
 a simple array-based integer queue (blueprint) with core functionality (enqueue(), dequeue() and top()).
