@@ -40,11 +40,12 @@ int main(int argc, char const *argv[]) {
         exit(EXIT_SUCCESS);
     }
 
+    //wait for child to terminate
     wait(NULL);
     printf("parent: integer: %d", *my_shm);
 
 
-    //unmap (check if it was unmapped before)
+    //unmap shm (check if it was unmapped before)
     if(my_shm > 0){
         munmap(my_shm, sizeof(int));
     }
