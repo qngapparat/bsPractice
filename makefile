@@ -30,3 +30,7 @@ sig:
 posix:
 	gcc posix_shm.c error_handler.c -o posixshm.out -lrt
 	gcc posix_sem.c error_handler.c -o posixsem.out -pthread
+
+queue:
+
+	gcc queue.c error_handler.c -o queue.out
