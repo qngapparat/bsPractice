@@ -41,3 +41,6 @@ creating a POSIX semaphore and closing it (insert critical section code between 
 ## Miscellaneous
 **array-based queue blueprint**
 a simple array-based integer queue (blueprint) with core functionality (enqueue(), dequeue() and top()).
+
+**heap_array.c**
+a working blueprint of a integer min-heap (minimum value on top), with core functionality, namely insert(), removeMin() and bubbleup() and bubbledown() (parts of the former two functions) implemented.
