@@ -44,3 +44,7 @@ a simple array-based integer queue (blueprint) with core functionality (enqueue(
 
 **heap_array.c**
 a working blueprint of a integer min-heap (minimum value on top), with core functionality, namely insert(), removeMin() and bubbleup() and bubbledown() (parts of the former two functions) implemented.
+
+## Incomplete:
+**binary_tree.c**
+Some functions are already implemented; it is however not yet functional as a whole.
