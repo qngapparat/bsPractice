@@ -39,7 +39,7 @@ using POSIX shared memory to store and change an integer over different processe
 creating a POSIX semaphore and closing it (insert critical section code between sem_open and sem_close).
 
 ## Miscellaneous
-**array-based queue blueprint**
+**queue.c**
 a simple array-based integer queue (blueprint) with core functionality (enqueue(), dequeue() and top()).
 
 **heap_array.c**
