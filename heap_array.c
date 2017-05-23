@@ -1,83 +1,75 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "error_handler.h"
 #include <stdbool.h>
+#include <stdlib.h>
 
-//serving as basis for our tree. Points to root
-//TODO update node_count upon insert returning true
+bool initialized = false;
 
-struct earth {
-    struct node* root;
-    int node_count;
-};
-
-struct node{
-    struct node* left;
-    struct node* right;
-    int value;
+void clear_element(int my_heap, int index){
+    my_heap[index] = -1;
+    return;
 }
 
-typedef struct earth Earth;
-typedef struct node Node;
-
-
-Earth create_earth(){
-
-    Earth temp = malloc(sizeof(temp));
-    temp.node_count = 0;
-    temp.root = NULL;
-
-    return temp;
-}
-
-bool insert_node(Earth* my_earth, int value){
-
-
-
-}
-
-static void destroy(Node* my_node){
-
-    //postorder traversal to destroy all nodes
-    if(my_node->left != NULL){
-        destroy(my_node->left);
-    }
-    if(my_node->right != NULL){
-        destroy(my_node->left);
+int find_last_element(int my_heap){
+    if(!initialized){
+        printf("removeMin: Heap not initialized.");
+        exit(EXIT_FAILURE);
     }
 
-    free(my_node);
+    //get how many elements are stored
+    int length = my_heap[0];
+    //length = 3 means the last element is at position [3]
+    return my_heap[length];
+}
+
+bool bubble_down(int my_heap){
 
 }
 
-int minimum_child_value(Node* my_node){
+int removeMin(int my_heap){
 
-}
-
-int maximum_child_value(Node* my_node){
-
-}
-
-bool contains_node(Node* my_node, int value){
-
-    if(value == my_node->value){
-        return true;
+    if(!initialized){
+        printf("removeMin: Heap not initialized.");
+        exit(EXIT_FAILURE);
     }
 
-    if(my_node->left != NULL){
-        contains_node(my_node->left, value);
-    }
+    int root  = my_heap[1];
+    my_heap[1] = find_last_element(my_heap);
+    clear_element(my_heap, my_heap[0]);
+    bubble_down(my_heap);
 
-    if(my_node->right != NULL){
-        contains_node(my_node->right, value);
-    }
 
 }
 
+bool bubble_up(int my_heap){
+
+
+}
+
+bool insert(int my_heap, int value){
+
+
+}
+
+int initialize(int size){
+
+    int my_heap[size];
+    for(int i = 0; i < size; i++){
+        my_heap[i] = -1;
+    }
+
+    return my_heap;
+}
 
 
 int main(int argc, char const *argv[]) {
 
+    printf("size of initial heap:\n");
+    int MAX_SIZE;
+    scanf("%d", &MAX_SIZE);
+    //since field[0] is left blank, or filled with size information
+    MAX_SIZE += 1;
+
+    int my_heap[] = initialize(MAX_SIZE);
 
 
     return EXIT_SUCCESS;
