@@ -1,6 +1,14 @@
 msg:
+	make msgsnd
+	make msgrcv
+
+
+msgsnd: msg_send.c error_handler.c
 	gcc msg_send.c error_handler.c -o msgsnd.out
+
+msgrcv: msg_recv.c error_handler.c
 	gcc msg_recv.c error_handler.c -o msgrcv.out
+
 
 shm:
 
