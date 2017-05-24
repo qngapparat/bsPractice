@@ -47,4 +47,4 @@ a working blueprint of a integer min-heap (minimum value on top), with core func
 
 ## Incomplete:
 **binary_tree.c**
-Some functions are already implemented; it is however not yet functional as a whole.
+Some functions are already implemented; it is however not yet functional as a whole.c 

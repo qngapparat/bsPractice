@@ -24,12 +24,14 @@ int main(int argc, char const *argv[]) {
 
     //mmap(specific adress, size of segment, permissions, mapping notificaitons, fd, offset)
     my_shm = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+
     if(my_shm == ((void *) -1)){
         perror("mmap");
         return EXIT_FAILURE;
     }
 
     *my_shm = 0;
+
     //... code
 
     pid_t pid;
